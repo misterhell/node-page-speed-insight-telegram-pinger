@@ -109,12 +109,15 @@ const sendBatchOfRequests = landings => {
                     if (promise.reason.response.status == 429) {
                         console.log(promise.reason.response.statusText)
                     } else {
-
+                        console.log(promise.reason.response)
                     }
                     const [errorUrl] = promise.reason.response.config.url.match(/(?<=url\=)(.*?)(?=\&)/)
                     console.log("ERROR URL desktop " + errorUrl)
                     // send url to telegram
-                    sendTelegramBotNotification(`[Error][Google page speed] can\`t check ${errorUrl} website!`)
+                    sendTelegramBotNotification(`
+                        [Error][Google page speed] ${errorUrl}
+                        can\`t check website!
+                    `)
                 }
             }
         })
