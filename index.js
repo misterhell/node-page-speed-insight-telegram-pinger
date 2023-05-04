@@ -109,17 +109,18 @@ const sendBatchOfRequests = landings => {
                 if (promise.status == 'rejected') {
                     if (promise.reason.response.status == 429) {
                         console.log(promise.reason.response.statusText)
+                        sendTelegramBotNotification("[Warning][Google page speed] To many requests")
                     } else {
                         console.log(promise.reason.response)
+                        const [errorUrl] = promise.reason.response.config.url.match(/(?<=url\=)(.*?)(?=\&)/)
+                        console.log("ERROR URL desktop " + errorUrl)
+                        // send url to telegram
+                        sendTelegramBotNotification(`
+                            [Error][Google page speed] 
+    ${errorUrl}
+    can\`t check website!
+                        `)
                     }
-                    const [errorUrl] = promise.reason.response.config.url.match(/(?<=url\=)(.*?)(?=\&)/)
-                    console.log("ERROR URL desktop " + errorUrl)
-                    // send url to telegram
-                    sendTelegramBotNotification(`
-                        [Error][Google page speed] 
-${errorUrl}
-can\`t check website!
-                    `)
                 }
             }
         })
