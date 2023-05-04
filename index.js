@@ -1,4 +1,5 @@
 const fs = require('fs');
+const process = require('process')
 
 require('dotenv').config();
 
@@ -40,7 +41,7 @@ const sendTelegramBotNotification = message => {
     axios
         .request(options)
         .then(function (response) {
-            //
+
         })
         .catch(function (error) {
             console.error(error);
@@ -115,8 +116,9 @@ const sendBatchOfRequests = landings => {
                     console.log("ERROR URL desktop " + errorUrl)
                     // send url to telegram
                     sendTelegramBotNotification(`
-                        [Error][Google page speed] ${errorUrl}
-                        can\`t check website!
+                        [Error][Google page speed] 
+${errorUrl}
+can\`t check website!
                     `)
                 }
             }
